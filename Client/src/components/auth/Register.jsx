@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import axios from 'axios';
-import loginBackground from '../../assets/image.png'; // Import the image
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import loginBackground from "../../assets/image.png";
 
 function Signup() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to your backend API to create the user
-      // You can use Axios or any other HTTP library
-      await axios.post('http://localhost:5000/auth/register', formData);
-      navigate('/login'); // Use navigate to redirect to the login page on success
+      await axios.post("http://localhost:5000/auth/register", formData);
+      navigate("/login");
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error("Signup failed:", error);
     }
-  }
-  
+  };
+
   return (
     <div className="min-h-screen flex flex-col sm:flex-row items-center justify-center">
-      <div className="w-full sm:w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${loginBackground})`, height: "430px", backgroundSize: "cover" }}></div>
+      <div
+        className="w-full sm:w-1/2 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${loginBackground})`,
+          height: "430px",
+          backgroundSize: "cover",
+        }}
+      ></div>
       <div className="w-full sm:w-1/2 bg-white p-8">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-4">
           Welcome Back
@@ -81,7 +86,9 @@ function Signup() {
         </form>
         <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500">Log in</a>
+          <a href="/" className="text-blue-500">
+            Log in
+          </a>
         </p>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function Home() {
   const [screenSharing, setScreenSharing] = useState(false);
@@ -7,7 +7,6 @@ function Home() {
 
   useEffect(() => {
     if (screenStream) {
-      // Convert the stream to a Blob
       const mediaRecorder = new MediaRecorder(screenStream);
       const chunks = [];
 
@@ -18,9 +17,8 @@ function Home() {
       };
 
       mediaRecorder.onstop = () => {
-        const videoBlob = new Blob(chunks, { type: 'video/webm' });
+        const videoBlob = new Blob(chunks, { type: "video/webm" });
 
-        // Create a URL for the Blob
         const blobURL = URL.createObjectURL(videoBlob);
         setVideoURL(blobURL);
       };
@@ -28,17 +26,19 @@ function Home() {
       mediaRecorder.start();
       setTimeout(() => {
         mediaRecorder.stop();
-      }, 2000); // Adjust the duration as needed
+      }, 2000);
     }
   }, [screenStream]);
 
   const handleStartSharing = async () => {
     try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+      });
       setScreenStream(stream);
       setScreenSharing(true);
     } catch (error) {
-      console.error('Error accessing screen sharing:', error);
+      console.error("Error accessing screen sharing:", error);
     }
   };
 
@@ -53,8 +53,12 @@ function Home() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Video Conferencing</h1>
-        <p className="text-lg text-gray-600">Connect and collaborate with others in real-time.</p>
+        <h1 className="text-4xl font-bold mb-4">
+          Welcome to Video Conferencing
+        </h1>
+        <p className="text-lg text-gray-600">
+          Connect and collaborate with others in real-time.
+        </p>
         <div className="mt-6">
           <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 m-2">
             Start Meeting
@@ -63,11 +67,17 @@ function Home() {
             Join Meeting
           </button>
           {screenSharing ? (
-            <button className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 m-2" onClick={handleStopSharing}>
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 m-2"
+              onClick={handleStopSharing}
+            >
               Stop Sharing
             </button>
           ) : (
-            <button className="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 m-2" onClick={handleStartSharing}>
+            <button
+              className="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 m-2"
+              onClick={handleStartSharing}
+            >
               Screen Sharing
             </button>
           )}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import loginBackground from '../../assets/image.png'; // Import the image
+import loginBackground from "../../assets/image.png";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -18,10 +18,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", formData);
+      const response = await axios.post(
+        "http://localhost:5000/auth/login",
+        formData
+      );
       const token = response.data.token;
       localStorage.setItem("authToken", token);
-      navigate('/home');
+      navigate("/home");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -29,7 +32,14 @@ function Login() {
 
   return (
     <div className="min-h-screen flex flex-col sm:flex-row items-center justify-center">
-      <div className="w-full sm:w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${loginBackground})`, height: "430px", backgroundSize: "cover" }}></div>
+      <div
+        className="w-full sm:w-1/2 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${loginBackground})`,
+          height: "430px",
+          backgroundSize: "cover",
+        }}
+      ></div>
       <div className="w-full sm:w-1/2 bg-white p-8">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-4">
           Welcome Back
@@ -68,7 +78,9 @@ function Login() {
         </form>
         <p className="text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <a href="/" className="text-blue-500">Sign up</a>
+          <a href="/signup" className="text-blue-500">
+            Sign up
+          </a>
         </p>
       </div>
     </div>
